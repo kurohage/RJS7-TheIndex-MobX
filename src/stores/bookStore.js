@@ -30,8 +30,10 @@ class BookStore {
   }
 
   get filterBooksByColor() {
-    return this.books.filter(book => book.color === this.bookColor);
+    return this.filteredBooks.filter(book => book.color === this.bookColor);
   }
+
+  getBookByID = bookID => this.books.find(book => book.id == bookID);
 }
 
 decorate(BookStore, {

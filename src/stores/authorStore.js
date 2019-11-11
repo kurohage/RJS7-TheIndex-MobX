@@ -8,9 +8,23 @@ const instance = axios.create({
 class AuthorStore {
   authors = [];
 
+  author = null;
+
   loading = true;
 
   query = "";
+
+  getAuthor = async authorID => {
+    this.loading = true;
+    try {
+      const res = await instance.get(`/api/authors/${authorID}`);
+      const author = res.data;
+      this.author = author;
+      this.loading = false;
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   fetchAuthors = async () => {
     try {
@@ -36,6 +50,7 @@ class AuthorStore {
 
 decorate(AuthorStore, {
   authors: observable,
+  author: observable,
   loading: observable,
   query: observable,
   filteredAuthors: computed
